@@ -79,3 +79,40 @@ export async function getTasks() {
     throw new Error("An unknown error occurred");
   }
 }
+interface EmployeeFormData {
+  name: string; 
+  surname: string; 
+  avatar: File | null;
+  department_id: number; 
+}
+
+export async function createEmployee(data: EmployeeFormData) {
+  try {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("surname", data.surname);
+    if (data.avatar) {
+      formData.append("avatar", data.avatar);
+    }
+    formData.append("department_id", data.department_id.toString());
+
+    const res = await fetch("https://momentum.redberryinternship.ge/api/employees", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (res.ok) {
+      const responseData = await res.json();
+      return responseData;
+    }
+    throw new Error("Something unexpected happened");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("An unknown error occurred");
+  }
+}
