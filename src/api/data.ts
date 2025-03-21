@@ -116,3 +116,96 @@ export async function createEmployee(data: EmployeeFormData) {
     throw new Error("An unknown error occurred");
   }
 }
+
+
+export async function getTaskInformation(id: number) {
+  try {
+      const res = await fetch(`https://momentum.redberryinternship.ge/api/tasks/${id}`, {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+
+      if (!res.ok) {
+          throw new Error("Something unexpected happened");
+      }
+
+      return await res.json();
+  } catch (error) {
+      throw new Error(error instanceof Error ? error.message : "An unknown error occurred");
+  }
+}
+
+
+
+
+
+
+export async function createComment(text: string, taskID: number, parentId?: number) {
+  try {
+    const commentData = new FormData();
+    commentData.append("text", text);
+    
+    // Append parent_id only if parentId is defined and not null
+    if (parentId !== undefined && parentId !== null) {
+      commentData.append("parent_id", parentId.toString());
+    }
+
+    const res = await fetch(`https://momentum.redberryinternship.ge/api/tasks/${taskID}/comments`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: commentData,
+    });
+
+    if (res.ok) {
+      const responseData = await res.json();
+      return responseData;
+    }
+    throw new Error("Something unexpected happened");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("An unknown error occurred");
+  }
+}
+
+export async function getTaskComments(taskIdNumber: number) {
+  try {
+    const res = await fetch(`https://momentum.redberryinternship.ge/api/tasks/${taskIdNumber}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error("Something unexpected happened");
+    }
+    return await res.json();
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "An unknown error occurred");
+  }
+}
+
+export async function updateTaskStatus(id: number, statusId: number): Promise<void> {
+  try {
+    const res = await fetch(`https://momentum.redberryinternship.ge/api/tasks/${id}`, {
+      method: "PUT", 
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status_id: statusId }), 
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to update task status");
+    }
+    const updatedTask = await res.json();
+    return updatedTask;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "An unknown error occurred");
+  }
+}

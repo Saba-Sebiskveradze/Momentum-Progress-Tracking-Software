@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useFilterContext } from "../filter/context/FilterContext";
 import { getTasks } from "../../api/data";
 import TaskCard from "./TaskCard";
+import { useNavigate } from "react-router";
 
 interface Task {
   id: number;
@@ -38,6 +39,7 @@ const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const { selectedDepartments, selectedEmployees, selectedPriorities } =
     useFilterContext();
@@ -96,21 +98,24 @@ const TaskList = () => {
 
   return (
     <div className="flex mx-[120px] mt-[40px] justify-between gap-[30px]">
-  {statusOrder.map((statusId) => (
-    <div key={statusId} className="">
-      {groupedTasks[statusId]?.length > 0 ? (
-        groupedTasks[statusId].map((task) => (
-          <div key={task.id} className="mt-[30px]">
-            <TaskCard task={task} />
-          </div>
-        ))
-      ) : (
-        <div className="mt-[30px] w-[380px] h-[217px]">
+      {statusOrder.map((statusId) => (
+        <div key={statusId} className="">
+          {groupedTasks[statusId]?.length > 0 ? (
+            groupedTasks[statusId].map((task) => (
+              <div
+                key={task.id}
+                className="mt-[30px] cursor-pointer"
+                onClick={() => navigate(`/taskpage/${task.id}`)}
+              >
+                <TaskCard task={task} />
+              </div>
+            ))
+          ) : (
+            <div className="mt-[30px] w-[380px] h-[217px]"></div>
+          )}
         </div>
-      )}
+      ))}
     </div>
-  ))}
-</div>
   );
 };
 
