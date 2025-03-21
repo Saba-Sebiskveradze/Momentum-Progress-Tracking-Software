@@ -16,6 +16,23 @@ export async function getDepartment() {
     throw new Error("An unknown error occurred");
   }
 }
+export async function getPriority() {
+  try {
+    const res = await fetch(
+      "https://momentum.redberryinternship.ge/api/priorities"
+    );
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+    throw new Error("Something unexpected happened");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error("An unknown error occurred");
+  }
+}
 
 export async function getEmployee() {
   try {
@@ -207,5 +224,45 @@ export async function updateTaskStatus(id: number, statusId: number): Promise<vo
     return updatedTask;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "An unknown error occurred");
+  }
+}
+export async function createTask(
+  title: string,
+  description: string,
+  priorityId: number,
+  statusId: number,
+  departmentId: number, // Add this parameter
+  employeeId: number,
+  deadline: string // Expected format: "YYYY-MM-DD"
+) {
+  try {
+    const taskData = {
+      name: title,
+      description: description,
+      due_date: deadline, // Ensure the format matches "YYYY-MM-DD"
+      status_id: statusId,
+      priority_id: priorityId,
+      department_id: departmentId, // Include department_id
+      employee_id: employeeId,
+    };
+
+    const res = await fetch("https://momentum.redberryinternship.ge/api/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(taskData),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! Status: ${res.status}`);
+    }
+
+    const responseData = await res.json();
+    return responseData;
+  } catch (error) {
+    console.error("Failed to create task:", error);
+    throw new Error("Failed to create task. Please check your network or contact support.");
   }
 }

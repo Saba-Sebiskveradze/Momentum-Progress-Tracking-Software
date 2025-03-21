@@ -137,9 +137,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         <div className="firaGO-font font-[900] text-[15px] text-[#191919]">
           {task.name}
         </div>
-        <div className="firaGO-font text-[400] text-[14px] text-[#343A40]">
-          {task.description}
-        </div>
+        <div className="firaGO-font text-[400] text-[12px] text-[#343A40] break-words overflow-hidden" style={{
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2 // Adjust the number of lines as needed
+}}>
+  {task.description}
+</div>
       </div>
 
       <div className="flex w-[340px] justify-between items-center">

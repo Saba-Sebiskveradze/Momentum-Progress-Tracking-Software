@@ -20,7 +20,7 @@ const Home = () => {
 
 
   return (
-    <div className="relative w-[1920px] h-[1080px]">
+    <div className="relative w-[1920px] h-[1080px] overflow-auto">
       <div style={blurStyle}>
       <Header openModal={openModal} />
         <div className="mt-[40px] ml-[120px] firaGO-font text-[34px] font-[600] text-GreyShades">

@@ -94,6 +94,10 @@ const TaskList = () => {
     return acc;
   }, {} as Record<number, Task[]>);
 
+  for (const statusId in groupedTasks) {
+    groupedTasks[statusId].reverse();
+  }
+
   const statusOrder = [1, 2, 3, 4];
 
   return (

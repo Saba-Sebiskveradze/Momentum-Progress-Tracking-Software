@@ -155,7 +155,7 @@ const Comments = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-[20px] max-h-[500px] overflow-y-auto">
+        <div className="flex flex-col gap-[20px] h-[500px] max-h-[500px] overflow-y-auto">
           {isLoading && comments.length === 0 ? (
             <p className="firaGO-font text-[14px] text-center">
               იტვირთება კომენტარები...
@@ -167,7 +167,7 @@ const Comments = () => {
           ) : (
             comments.map((comment) => (
               <div key={comment.id} className="flex flex-col gap-[15px]">
-                <div className="w-full  w-[600px] h-[104px]">
+                <div className="w-full  w-[600px]">
                   <div className="flex gap-[12px] ">
                     <img
                       src={comment.user.avatar}
@@ -179,7 +179,7 @@ const Comments = () => {
                         <p className="firaGO-font text-[500] text-[18px] text-[#212529] leading-[0px] ">
                           {comment.user.name}
                         </p>
-                        <p className="firaGO-font text-[350] text-[16px] text-[#343A40] leading-[0px]">
+                        <p className="firaGO-font text-[350] text-[16px] text-[#343A40] ">
                           {comment.text}
                         </p>
                       </div>
@@ -256,7 +256,7 @@ const Comments = () => {
                             <span className="firaGO-font text-[500] text-[18px] text-[#212529]">
                               {reply.user.name}
                             </span>
-                            <p className="firaGO-font text-[350] text-[16px] text-[#343A40] leading-[0px]">{reply.text}</p>
+                            <p className="firaGO-font text-[350] text-[16px] text-[#343A40] ">{reply.text}</p>
 
                             </div>
                            

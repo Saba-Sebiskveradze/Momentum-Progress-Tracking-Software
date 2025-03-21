@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, ChangeEvent, MouseEvent } from "react";
 import modalX from "../assets/img/modalX.svg";
-import asterisk from "../assets/img/astrerisk.svg";
 import checkModal from "../assets/img/checkModal.svg";
 import trash from "../assets/img/trash.svg";
 import arrowdown from "../assets/img/arrowdown.svg";
@@ -16,10 +15,10 @@ interface Department {
 }
 
 interface EmployeeFormData {
-  name: string; 
-  surname: string; 
+  name: string;
+  surname: string;
   avatar: File | null;
-  department_id: number; 
+  department_id: number;
 }
 
 interface ValidationState {
@@ -122,10 +121,7 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
     fetchDepartments();
   }, []);
 
-  const validateName = (
-    name: string,
-    field: "name" | "surname"
-  ): void => {
+  const validateName = (name: string, field: "name" | "surname"): void => {
     const georgianLatinRegex = /^[a-zA-Zა-ჰ\s]+$/;
     const isMinLength = name.length >= 2;
     const isMaxLength = name.length <= 255;
@@ -317,8 +313,8 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
                   <div className="flex">
                     <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40] leading-[0px]">
                       სახელი
+                      <sup className="text-xs">*</sup>
                     </h2>
-                    <img src={asterisk} alt="required" className="h-2" />
                   </div>
                   <div className="relative w-[384px]">
                     <input
@@ -327,14 +323,13 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
                       value={formData.name}
                       onChange={handleInputChange}
                       className={`border p-[10px] rounded-[6px] w-full ${
-                        validation.name.touched &&
-                        !validation.name.valid
+                        validation.name.touched && !validation.name.valid
                           ? "border-[#FA4D4D]"
                           : "border-[#CED4DA]"
                       }`}
                     />
                     <img
-                      src={information} 
+                      src={information}
                       alt="information"
                       className="absolute right-[15px] top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer"
                     />
@@ -410,34 +405,33 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
                             : "text-[#FA4D4D]"
                         }`}
                       >
-                        მარტო ლათინური და ქართული სიმბოლოები 
+                        მარტო ლათინური და ქართული სიმბოლოები
                       </p>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-[3px] w-[384px] h-[102px]">
-                  <div className="flex items-center">
+                  <div className="flex">
                     <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40] leading-[0px]">
                       გვარი
+                      <sup className="text-xs">*</sup>
                     </h2>
-                    <img src={asterisk} alt="required" className=" h-2 mt-1" />
                   </div>
                   <div className="relative w-[384px]">
-
-                  <input
-                    type="text"
-                    name="surname"
-                    value={formData.surname}
-                    onChange={handleInputChange}
-                    className={`border p-[10px] rounded-[6px] w-full ${
-                      validation.surname.touched && !validation.surname.valid
-                        ? "border-[#FA4D4D]"
-                        : "border-[#CED4DA]"
-                    }`}
-                  />
-                   <img
-                      src={information} 
+                    <input
+                      type="text"
+                      name="surname"
+                      value={formData.surname}
+                      onChange={handleInputChange}
+                      className={`border p-[10px] rounded-[6px] w-full ${
+                        validation.surname.touched && !validation.surname.valid
+                          ? "border-[#FA4D4D]"
+                          : "border-[#CED4DA]"
+                      }`}
+                    />
+                    <img
+                      src={information}
                       alt="information"
                       className="absolute right-[15px] top-1/2 transform -translate-y-1/2 w-4 h-4 cursor-pointer"
                     />
@@ -512,7 +506,7 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
                             : "text-[#FA4D4D]"
                         }`}
                       >
-                        მარტო ლათინური და ქართული სიმბოლოები 
+                        მარტო ლათინური და ქართული სიმბოლოები
                       </p>
                     </div>
                   </div>
@@ -521,10 +515,10 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
 
               <div className="flex flex-col gap-[8px]">
                 <div className="flex">
-                  <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40]">
+                  <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40] leading-[0px]">
                     ავატარი
+                    <sup className="text-xs">*</sup>
                   </h2>
-                  <img src={asterisk} alt="required" className="h-2" />
                 </div>
 
                 <div
@@ -585,11 +579,11 @@ const EmployeeModal: React.FC<EmployeeModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               <div className="flex flex-col gap-[3px] w-[384px]">
-                <div className="flex ">
-                  <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40]">
+                <div className="flex">
+                  <h2 className="firaGO-font text-[500] text-[14px] text-[#343A40] leading-[0px]">
                     დეპარტამენტი
+                    <sup className="text-xs">*</sup>
                   </h2>
-                  <img src={asterisk} alt="required" className="h-2" />
                 </div>
 
                 <div className="relative ">
